@@ -96,9 +96,7 @@ public class TowerSpawner : MonoBehaviour, IUpdatable
         }
         
         var spawners = GameController.Instance.GetEnemySpawners();
-        foreach (var spawner in spawners)
-        {
-            spawner.enemiesToSpawn += enemiesToSpawnIncrement;
-        }
+        int index = Random.Range(0, spawners.Count);
+        spawners[index].enemiesToSpawn += enemiesToSpawnIncrement;
     }
 }
