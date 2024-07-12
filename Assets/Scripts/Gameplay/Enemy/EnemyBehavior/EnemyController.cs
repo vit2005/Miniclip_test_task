@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour, IUpdatable
 {
     [SerializeField] private BulletSpawner bulletSpawner;
     [SerializeField] private EnemyConfig config;
+    [SerializeField] private HealthHolder _selfHealthHolder;
 
     private AttackBehavior _attackBehavior;
     private MoveBehavior _moveBehavior;
@@ -16,6 +17,8 @@ public class EnemyController : MonoBehaviour, IUpdatable
 
     public void Init(BulletPool pool, Transform mainTarget)
     {
+        _selfHealthHolder.SetMaxHealth(config.health);
+
         _moveBehavior = new MoveBehavior();
         _moveBehavior.Init(transform, mainTarget, config.moveSpeed, config.radius, config.layerMask);
         _moveBehavior.TargetSpotted += OnTowerSpotted;
@@ -31,13 +34,14 @@ public class EnemyController : MonoBehaviour, IUpdatable
 
     public void OnTowerSpotted(HealthHolder healthHolder)
     {
+        _moveBehavior.StopMoving();
         _targetHealth = healthHolder;
         _targetHealth.DestroyedAction += OnTowerDestroyed;
         bulletSpawner.SetTarget(_targetHealth.transform);
         _currentBehavior = _attackBehavior;
     }
 
-    public void OnTowerDestroyed()
+    public void OnTowerDestroyed(HealthHolder healthHolder)
     {
         _currentBehavior = _moveBehavior;
         _moveBehavior.StartMoving();

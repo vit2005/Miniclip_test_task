@@ -10,12 +10,18 @@ public class HealthHolder : MonoBehaviour
     public int HP => _hp;
 
     public Action DamagedAction;
-    public Action DestroyedAction;
+    public Action<HealthHolder> DestroyedAction;
     public Action RevivedAction;
 
     public void Awake()
     {
         _hp = _maxHp;
+    }
+
+    public void SetMaxHealth(int value, bool setHealth = true)
+    {
+        _maxHp = value;
+        if (setHealth) _hp = _maxHp;
     }
 
     public void Damage(int value)
@@ -26,7 +32,7 @@ public class HealthHolder : MonoBehaviour
         if (_hp <= 0)
         {
             _hp = 0;
-            DestroyedAction?.Invoke();
+            DestroyedAction?.Invoke(this);
         }
     }
 

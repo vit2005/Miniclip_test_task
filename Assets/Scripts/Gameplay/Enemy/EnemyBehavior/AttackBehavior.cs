@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AttackBehavior : IUpdatable
 {
-    private BulletSpawner _spawner;
+    protected BulletSpawner spawner;
 
     public void Init(BulletSpawner spawner)
     {
-        _spawner = spawner;
+        this.spawner = spawner;
     }
 
-    public void OnUpdate()
+    public virtual void OnUpdate()
     {
-        _spawner.OnUpdate();
+        spawner.OnUpdate();
     }
 }

@@ -13,8 +13,11 @@ GameObject:
   - component: {fileID: 2434252734926870086}
   - component: {fileID: 371852072486018786}
   - component: {fileID: 86217852674563112}
+  - component: {fileID: 2619991938730366359}
+  - component: {fileID: 7453907070105344242}
+  - component: {fileID: 8608373636319114300}
   m_Layer: 6
-  m_Name: Tower
+  m_Name: GuardTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ef5c839da0248704296f248d83132470, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,3 +114,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 10
+--- !u!114 &2619991938730366359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3046906940410918443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a4886bfb4334ef41969404e624a4c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7453907070105344242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3046906940410918443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2311ddc83cc8bd14da3a7113d1556786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  spawnPoint: {fileID: 850702084049197264}
+--- !u!114 &8608373636319114300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3046906940410918443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86110e4e3b960774aa20aede74d03770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawner: {fileID: 7453907070105344242}
+  config: {fileID: 11400000, guid: 3bb7784a348f0f84eb4c18bc5f4363bb, type: 2}
+  healthHolder: {fileID: 86217852674563112}

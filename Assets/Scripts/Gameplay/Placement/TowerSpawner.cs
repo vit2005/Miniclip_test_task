@@ -8,12 +8,14 @@ public class TowerSpawner : MonoBehaviour
 
     [SerializeField] private Camera sceneCamera;
     [SerializeField] private LayerMask placementLayermask;
-    [SerializeField] private GameObject debugGameObject;
-    private Vector3 lastPosition;
+    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private BulletPool bulletPool;
 
-    public GameObject towerPrefab;
+    private Vector3 lastPosition;
     private GameObject currentTower;
     private bool isPlacing = false;
+    
+    private List<TowerController> towers = new List<TowerController>();
 
     void Update()
     {
@@ -22,6 +24,11 @@ public class TowerSpawner : MonoBehaviour
             Vector3 position = GetSelectedMapPosition();
             currentTower.transform.position = position;
             SnapToGrid();
+        }
+
+        foreach (TowerController t in towers)
+        {
+            t.OnUpdate();
         }
     }
 
@@ -51,8 +58,17 @@ public class TowerSpawner : MonoBehaviour
         if (!isPlacing)
         {
             currentTower = Instantiate(towerPrefab);
+            var controller = currentTower.GetComponent<TowerController>();
+            controller.Init(bulletPool);
+            currentTower.GetComponent<HealthHolder>().DestroyedAction += OnTowerDestroyed;
+            towers.Add(controller);
             isPlacing = true;
         }
+    }
+
+    private void OnTowerDestroyed(HealthHolder h)
+    {
+        towers.Remove(h.gameObject.GetComponent<TowerController>());
     }
 
     public void StopPlacingTower(BaseEventData data)

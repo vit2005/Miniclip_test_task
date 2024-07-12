@@ -32,12 +32,16 @@ public class MoveBehavior : IUpdatable
         _rb.velocity = (_target.position - _source.position).normalized * _speed;
     }
 
+    public void StopMoving()
+    {
+        _rb.velocity = Vector3.zero;
+    }
+
     public void OnUpdate()
     {
         var colliders = Physics.OverlapSphere(_source.position, _radius, _layerMask);
         if (colliders.Length > 0)
         {
-            _rb.velocity = Vector3.zero;
             TargetSpotted?.Invoke(colliders[0].gameObject.GetComponent<HealthHolder>());
         }
     }
