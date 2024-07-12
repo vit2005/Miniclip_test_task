@@ -42,7 +42,7 @@ public class BulletSpawner : MonoBehaviour, IUpdatable
         bullet.Init(_targetLayers, _attackPower);
         bullet.Move();
 
-        // Return the bullet to the pool after 2 seconds
+        if (!gameObject.activeSelf) return;
         StartCoroutine(ReturnBulletToPool(bullet.gameObject, 2f));
     }
 

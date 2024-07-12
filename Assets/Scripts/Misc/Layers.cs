@@ -4,7 +4,7 @@ public enum Layers
 {
     Tower = 6,
     Enemy = 7,
-
+    Mines = 8,
 }
 
 public class LayersHelper

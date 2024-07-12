@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   health: 5
-  radius: 3
-  attackSpeed: 3
+  radius: 2
+  attackSpeed: 2
   attackPower: 2
   layerMask:
     serializedVersion: 2

@@ -47,6 +47,16 @@ public class EnemyController : MonoBehaviour, IUpdatable
         _moveBehavior.StartMoving();
     }
 
+    public void StartMoving()
+    {
+        _moveBehavior.StartMoving();
+    }
+
+    public void StopMoving()
+    {
+        _moveBehavior.StopMoving();
+    }
+
     public void OnUpdate()
     {
         _currentBehavior.OnUpdate();

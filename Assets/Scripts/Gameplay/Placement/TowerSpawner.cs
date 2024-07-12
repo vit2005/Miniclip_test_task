@@ -1,34 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TowerSpawner : MonoBehaviour
+public class TowerSpawner : MonoBehaviour, IUpdatable
 {
-
     [SerializeField] private Camera sceneCamera;
     [SerializeField] private LayerMask placementLayermask;
     [SerializeField] private GameObject towerPrefab;
     [SerializeField] private BulletPool bulletPool;
+    [SerializeField] private int enemiesToSpawnIncrement;
+    [SerializeField] private float minTapMovement = 50f;
 
     private Vector3 lastPosition;
     private GameObject currentTower;
     private bool isPlacing = false;
+    private Vector3 touchStartPosition;
+    public bool IsPlacing => isPlacing;
     
-    private List<TowerController> towers = new List<TowerController>();
+    public List<TowerController> towers = new List<TowerController>();
 
-    void Update()
+    public void OnUpdate()
     {
         if (isPlacing && currentTower != null)
         {
             Vector3 position = GetSelectedMapPosition();
             currentTower.transform.position = position;
             SnapToGrid();
-        }
-
-        foreach (TowerController t in towers)
-        {
-            t.OnUpdate();
         }
     }
 
@@ -55,13 +54,12 @@ public class TowerSpawner : MonoBehaviour
 
     public void StartPlacingTower(BaseEventData data)
     {
+        if (GameController.Instance.CurrentGameState != GameState.Placement) return;
+
         if (!isPlacing)
         {
+            touchStartPosition = Input.mousePosition;
             currentTower = Instantiate(towerPrefab);
-            var controller = currentTower.GetComponent<TowerController>();
-            controller.Init(bulletPool);
-            currentTower.GetComponent<HealthHolder>().DestroyedAction += OnTowerDestroyed;
-            towers.Add(controller);
             isPlacing = true;
         }
     }
@@ -74,5 +72,33 @@ public class TowerSpawner : MonoBehaviour
     public void StopPlacingTower(BaseEventData data)
     {
         isPlacing = false;
+        if (GameController.Instance.CurrentGameState != GameState.Placement) return;
+        if (currentTower == null) return;
+        if ((Input.mousePosition - touchStartPosition).magnitude < minTapMovement)
+        {
+            Destroy(currentTower);
+            return;
+        }
+
+        var data1 = Physics.OverlapSphere(currentTower.transform.position, 0.5f);
+        if (data1.Count(x => x.gameObject.layer == (int)Layers.Tower || x.gameObject.layer == (int)Layers.Mines) > 1)
+        {
+            Destroy(currentTower);
+            return;
+        }
+
+        var controller = currentTower.GetComponent<TowerController>();
+        if (controller != null)
+        {
+            controller.Init(bulletPool);
+            towers.Add(controller);
+            currentTower.GetComponent<HealthHolder>().DestroyedAction += OnTowerDestroyed;
+        }
+        
+        var spawners = GameController.Instance.GetEnemySpawners();
+        foreach (var spawner in spawners)
+        {
+            spawner.enemiesToSpawn += enemiesToSpawnIncrement;
+        }
     }
 }

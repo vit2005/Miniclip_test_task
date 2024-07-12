@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2619991938730366359}
   - component: {fileID: 7453907070105344242}
   - component: {fileID: 8608373636319114300}
+  - component: {fileID: 2439765123854753329}
   m_Layer: 6
   m_Name: GuardTower
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 3046906940410918443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.98, y: 0.98, z: 0.98}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -155,3 +156,15 @@ MonoBehaviour:
   bulletSpawner: {fileID: 7453907070105344242}
   config: {fileID: 11400000, guid: 3bb7784a348f0f84eb4c18bc5f4363bb, type: 2}
   healthHolder: {fileID: 86217852674563112}
+--- !u!114 &2439765123854753329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3046906940410918443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428fa133067c04048a4919baaa2662aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,7 +9,7 @@ public class HealthHolder : MonoBehaviour
     private int _hp = 100;
     public int HP => _hp;
 
-    public Action DamagedAction;
+    public Action<float> DamagedAction;
     public Action<HealthHolder> DestroyedAction;
     public Action RevivedAction;
 
@@ -27,13 +27,13 @@ public class HealthHolder : MonoBehaviour
     public void Damage(int value)
     {
         _hp -= value;
-        DamagedAction?.Invoke();
 
         if (_hp <= 0)
         {
             _hp = 0;
             DestroyedAction?.Invoke(this);
         }
+        DamagedAction?.Invoke((float)_hp/_maxHp);
     }
 
     public void Revive()

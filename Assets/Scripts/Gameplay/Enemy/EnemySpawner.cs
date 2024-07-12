@@ -1,16 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IUpdatable
 {
     [SerializeField] private EnemyPool enemyPool;
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private float spawnInterval = 5f;
     [SerializeField] private BulletPool bulletPool;
-    [SerializeField] private Transform mainTarget; 
+    [SerializeField] private Transform mainTarget;
 
-    private List<EnemyController> enemies = new List<EnemyController>();
+    public int enemiesToSpawn = 10;
+    public bool allEnemiesSpawned = false;
+
+    public List<EnemyController> enemies = new List<EnemyController>();
 
     private float nextSpawnTime;
 
@@ -19,12 +23,11 @@ public class EnemySpawner : MonoBehaviour
         nextSpawnTime = Time.time;
     }
 
-    private void Update()
+    public void OnUpdate()
     {
         if (Time.time >= nextSpawnTime)
         {
-            SpawnEnemy();
-            nextSpawnTime = Time.time + spawnInterval;
+            if (SpawnEnemy()) nextSpawnTime = Time.time + spawnInterval;
         }
 
         foreach (EnemyController e in enemies) {
@@ -32,15 +35,23 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy()
+    private bool SpawnEnemy()
     {
-        int spawnIndex = Random.Range(0, spawnPoints.Count);
+        if (enemiesToSpawn == 0)
+        {
+            allEnemiesSpawned = true;
+            return false;
+        }
+
+        int spawnIndex = UnityEngine.Random.Range(0, spawnPoints.Count);
         EnemyController enemy = enemyPool.GetEnemy();
         enemy.transform.position = spawnPoints[spawnIndex].position;
         enemy.transform.rotation = spawnPoints[spawnIndex].rotation;
         enemy.Init(bulletPool, mainTarget);
         enemy.GetComponent<HealthHolder>().DestroyedAction += OnEnemyDeath;
         enemies.Add(enemy);
+        enemiesToSpawn--;
+        return true;
     }
 
     private void OnEnemyDeath(HealthHolder healthHolder)
