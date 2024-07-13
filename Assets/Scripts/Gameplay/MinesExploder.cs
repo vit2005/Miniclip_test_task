@@ -41,7 +41,7 @@ public class MinesExploder : MonoBehaviour
                         if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Mines")))
                         {
                             Explode(hit.transform.position);
-                            Destroy(hit.collider.gameObject);
+                            StartCoroutine(DelayedDestroy(hit.collider.gameObject));
                         }
                     }
                     isTouching = false;
@@ -66,5 +66,12 @@ public class MinesExploder : MonoBehaviour
                 healthHolder?.Damage(minesDamage);
             }
         }
+    }
+
+    private IEnumerator DelayedDestroy(GameObject mine)
+    {
+        mine.GetComponent<HealthHolder>().Damage(9999);
+        yield return new WaitForSeconds(1f);
+        Destroy(mine);
     }
 }

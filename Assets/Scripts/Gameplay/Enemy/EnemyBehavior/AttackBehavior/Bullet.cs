@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private TrailRenderer trail;
     public float speed = 10f;
 
     private int _targetLayers;
@@ -13,6 +15,7 @@ public class Bullet : MonoBehaviour
     {
         _targetLayers = layers;
         _attackPower = attackPower;
+        trail.Clear();
     }
 
     public void Move()

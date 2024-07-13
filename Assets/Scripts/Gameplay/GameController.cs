@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameController : MonoBehaviour
 
     public GameObject VictoryScreen;
     public GameObject DefeatScreen;
+
+    public Transform Ground; // for particleEffects
 
     private Dictionary<GameState, GameStateBase> gameStates;
     private GameStateBase _currentGameStateInstance;
