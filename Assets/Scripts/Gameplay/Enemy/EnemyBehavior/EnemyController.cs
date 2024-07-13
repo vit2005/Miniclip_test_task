@@ -34,7 +34,6 @@ public class EnemyController : MonoBehaviour, IUpdatable
 
     public void OnTowerSpotted(HealthHolder healthHolder)
     {
-        _moveBehavior.StopMoving();
         _targetHealth = healthHolder;
         _targetHealth.DestroyedAction += OnTowerDestroyed;
         bulletSpawner.SetTarget(_targetHealth.transform);

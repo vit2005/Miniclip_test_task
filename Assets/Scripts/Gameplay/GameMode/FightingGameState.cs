@@ -49,7 +49,7 @@ public class FightingGameState : GameStateBase
         base.OnUpdate();
         foreach (var item in spawners)
         {
-            if (!item.allEnemiesSpawned) item.OnUpdate();
+            item.OnUpdate();
         }
         foreach (var item in towers)
         {

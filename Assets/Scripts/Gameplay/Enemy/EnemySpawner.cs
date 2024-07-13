@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class EnemySpawner : MonoBehaviour, IUpdatable
 {
@@ -25,7 +26,7 @@ public class EnemySpawner : MonoBehaviour, IUpdatable
 
     public void OnUpdate()
     {
-        if (Time.time >= nextSpawnTime)
+        if (!allEnemiesSpawned && Time.time >= nextSpawnTime)
         {
             if (SpawnEnemy()) nextSpawnTime = Time.time + spawnInterval;
         }
