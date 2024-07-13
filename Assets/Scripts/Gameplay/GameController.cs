@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     private GameStateBase _currentGameStateInstance;
     public GameState CurrentGameState;
     public bool GameResult;
+    public bool DoubleSpeed;
 
     private const string FIGHT = "FIGHT";
     private const string PLACE = "PLACE";
@@ -103,6 +104,13 @@ public class GameController : MonoBehaviour
 
     public void CloseGameController()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Start");
+    }
+
+    public void Speed2X(bool value)
+    {
+        DoubleSpeed = !DoubleSpeed;
+        Time.timeScale = DoubleSpeed ? 2 : 1;
     }
 }

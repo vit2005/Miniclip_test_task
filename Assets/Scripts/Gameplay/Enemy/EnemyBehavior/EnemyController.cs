@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour, IUpdatable
     public void Init(BulletPool pool, Transform mainTarget)
     {
         _selfHealthHolder.SetMaxHealth(config.health);
+        _selfHealthHolder.DestroyedAction += OnSelfDestroyed;
 
         _moveBehavior = new MoveBehavior();
         _moveBehavior.Init(transform, mainTarget, config.moveSpeed, config.radius, config.layerMask);
@@ -26,7 +27,7 @@ public class EnemyController : MonoBehaviour, IUpdatable
         bulletSpawner.Init(pool, config.attackSpeed, config.attackPower, config.layerMask);
 
         _attackBehavior = new AttackBehavior();
-        _attackBehavior.Init(GetComponent<Rigidbody>(), bulletSpawner);
+        _attackBehavior.Init(gameObject.GetComponent<Rigidbody>(), bulletSpawner);
 
         _currentBehavior = _moveBehavior;
         _moveBehavior.StartMoving();
@@ -46,6 +47,11 @@ public class EnemyController : MonoBehaviour, IUpdatable
         _moveBehavior.StartMoving();
     }
 
+    public void OnSelfDestroyed(HealthHolder healthHolder)
+    {
+        _currentBehavior = null;
+    }
+
     public void StartMoving()
     {
         _moveBehavior.StartMoving();
@@ -58,6 +64,6 @@ public class EnemyController : MonoBehaviour, IUpdatable
 
     public void OnUpdate()
     {
-        _currentBehavior.OnUpdate();
+        _currentBehavior?.OnUpdate();
     }
 }

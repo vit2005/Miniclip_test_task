@@ -16,6 +16,7 @@ public class AttackBehavior : IUpdatable
     public virtual void OnUpdate()
     {
         spawner.OnUpdate();
+        if (source == null) return;
         source.velocity = Vector3.Lerp(source.velocity, Vector3.zero, 0.5f);
     }
 }
