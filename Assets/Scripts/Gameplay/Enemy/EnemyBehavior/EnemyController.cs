@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour, IUpdatable
         bulletSpawner.Init(pool, config.attackSpeed, config.attackPower, config.layerMask);
 
         _attackBehavior = new AttackBehavior();
-        _attackBehavior.Init(bulletSpawner);
+        _attackBehavior.Init(GetComponent<Rigidbody>(), bulletSpawner);
 
         _currentBehavior = _moveBehavior;
         _moveBehavior.StartMoving();
