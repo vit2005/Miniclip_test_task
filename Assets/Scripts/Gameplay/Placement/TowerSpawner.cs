@@ -44,7 +44,7 @@ public class TowerSpawner : MonoBehaviour, IUpdatable
         return lastPosition;
     }
 
-    void SnapToGrid()
+    private void SnapToGrid()
     {
         Vector3 position = currentTower.transform.position;
         position.x = Mathf.Round(position.x);
@@ -74,6 +74,7 @@ public class TowerSpawner : MonoBehaviour, IUpdatable
         isPlacing = false;
         if (GameController.Instance.CurrentGameState != GameState.Placement) return;
         if (currentTower == null) return;
+
         if ((Input.mousePosition - touchStartPosition).magnitude < minTapMovement)
         {
             Destroy(currentTower);

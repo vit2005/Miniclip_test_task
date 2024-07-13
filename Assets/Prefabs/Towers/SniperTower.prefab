@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ps: {fileID: 0}
+  detectionCollider: {fileID: 371852072486018786}
 --- !u!114 &7453907070105344242
 MonoBehaviour:
   m_ObjectHideFlags: 0

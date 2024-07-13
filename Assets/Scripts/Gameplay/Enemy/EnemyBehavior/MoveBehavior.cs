@@ -70,7 +70,7 @@ public class MoveBehavior : IUpdatable
             Vector3 perpendicular = Vector3.Cross(direction, Vector3.up).normalized;
             if (isAvoiding) return -perpendicular;
 
-            if (Physics.SphereCast(_source.position, 0.5f, perpendicular, out _, 1f, _avoidenceMask))
+            if (Physics.SphereCast(_source.position, 0.5f, perpendicular, out _, 0.5f, _avoidenceMask))
             {
                 isAvoiding = true;
                 return -perpendicular;

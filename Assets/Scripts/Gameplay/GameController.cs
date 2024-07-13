@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private List<TowerSpawner> towerSpawners;
     [SerializeField] private List<EnemySpawner> enemySpawners;
     [SerializeField] private HealthHolder mainTower;
+    [SerializeField] private List<GameObject> placementButtons;
+    [SerializeField] private List<GameObject> fightingButtons;
 
     [SerializeField] private Renderer ground;
     [SerializeField] private Material placementMaterial;
@@ -65,11 +67,27 @@ public class GameController : MonoBehaviour
         {
             case GameState.Placement:
                 ground.material = fightingMaterial;
+                foreach (var b in placementButtons)
+                {
+                    b.SetActive(false);
+                }
+                foreach (var b in fightingButtons)
+                {
+                    b.SetActive(true);
+                }
                 ChangeState(GameState.Fighting);
                 stateText.text = PLACE;
                 break;
             case GameState.Fighting:
                 ground.material = placementMaterial;
+                foreach (var b in placementButtons)
+                {
+                    b.SetActive(true);
+                }
+                foreach (var b in fightingButtons)
+                {
+                    b.SetActive(false);
+                }
                 ChangeState(GameState.Placement);
                 stateText.text = FIGHT;
                 break;

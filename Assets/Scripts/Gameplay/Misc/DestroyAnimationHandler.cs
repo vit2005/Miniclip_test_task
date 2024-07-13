@@ -7,6 +7,7 @@ using UnityEngine;
 public class DestroyAnimationHandler : MonoBehaviour
 {
     [SerializeField] ParticleSystem _ps;
+    [SerializeField] Collider detectionCollider;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class DestroyAnimationHandler : MonoBehaviour
 
     private void StartAnimation(HealthHolder healthHolder)
     {
+        detectionCollider.enabled = false;
         StartCoroutine(DelayedDeactivation());
         if (_ps != null) _ps.Play();
     }
