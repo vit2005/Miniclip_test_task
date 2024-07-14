@@ -26,24 +26,24 @@ the archive.
 
 The project must use Unity 2021.3.4f1 (https://unity3d.com/get-unity/download/archive).
 Mandatory features:
-● Basic 3D graphics.
-● Three different defence towers.
-● Both gameplay: plan and fighting.
-● Simple enemies.
-● Basic UI (start page, ingame (edit mode + fighting mode), reward page).
-● Mobile version with touch input.
-● Mines: they explode when the user tap on them damaging the enemies in a certain 
+- Basic 3D graphics 
+- Three different defence towers.
+- Both gameplay: plan and fighting.
+- Simple enemies.
+- Basic UI (start page, ingame (edit mode + fighting mode), reward page).
+- Mobile version with touch input.
+- Mines: they explode when the user tap on them damaging the enemies in a certain 
 range.
 
 Optional features (in order of importance):
-● Advanced enemies (different categories with different speed, resistance, firepower, 
+- Advanced enemies (different categories with different speed, resistance, firepower, 
 etc…)
-● Fences: they are physical obstacles that the enemies must avoid.
-● During the Fighting Phase the simulation can be speeded up (2x) using a toggle 
+- Fences: they are physical obstacles that the enemies must avoid.
+- During the Fighting Phase the simulation can be speeded up (2x) using a toggle 
 button
-● Advanced graphics.
-● Special effects.
-● Sound effects.
+- Advanced graphics.
+- Special effects.
+- Sound effects.
 
 Your work will be evaluated by considering following aspects:
 1. Quality and completeness of the resulting project.
