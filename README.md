@@ -44,9 +44,8 @@ button
 ● Advanced graphics.
 ● Special effects.
 ● Sound effects.
+
 Your work will be evaluated by considering following aspects:
 1. Quality and completeness of the resulting project.
 2. Quality of the code delivered.
 3. Number and quality of the optional features implemented.
-You have two weeks from now.
-Good Luck
