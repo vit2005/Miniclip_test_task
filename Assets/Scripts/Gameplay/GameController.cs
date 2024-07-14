@@ -22,6 +22,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private Material fightingMaterial;
     [SerializeField] private TextMeshProUGUI stateText;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip placementSound;
+    [SerializeField] private AudioClip FightingSound;
+    [SerializeField] private AudioClip VictorySound;
+
     public GameObject VictoryScreen;
     public GameObject DefeatScreen;
 
@@ -51,6 +56,8 @@ public class GameController : MonoBehaviour
         _currentGameStateInstance = gameStates[CurrentGameState];
 
         mainTower.DestroyedAction += OnMainTowerDestroyed;
+        audioSource.clip = placementSound;
+        audioSource.Play();
     }
 
     public void ChangeState(GameState state)
@@ -77,6 +84,8 @@ public class GameController : MonoBehaviour
                 }
                 ChangeState(GameState.Fighting);
                 stateText.text = PLACE;
+                audioSource.clip = FightingSound;
+                audioSource.Play();
                 break;
             case GameState.Fighting:
                 ground.material = placementMaterial;
@@ -90,6 +99,8 @@ public class GameController : MonoBehaviour
                 }
                 ChangeState(GameState.Placement);
                 stateText.text = FIGHT;
+                audioSource.clip = placementSound;
+                audioSource.Play();
                 break;
             default:
                 break;
@@ -104,6 +115,8 @@ public class GameController : MonoBehaviour
 
     public void AllEnemiesAreDead()
     {
+        audioSource.clip = VictorySound;
+        audioSource.Play();
         GameResult = true;
         ChangeState(GameState.Result);
     }
