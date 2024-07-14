@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour, IUpdatable
     [SerializeField] private BulletPool bulletPool;
     [SerializeField] private Transform mainTarget;
 
-    public int enemiesToSpawn = 10;
+    public int enemiesToSpawn;
     public bool allEnemiesSpawned = false;
 
     public List<EnemyController> enemies = new List<EnemyController>();
@@ -46,7 +46,6 @@ public class EnemySpawner : MonoBehaviour, IUpdatable
         int spawnIndex = UnityEngine.Random.Range(0, spawnPoints.Count);
         EnemyController enemy = enemyPool.GetEnemy();
         enemy.transform.position = spawnPoints[spawnIndex].position;
-        enemy.transform.rotation = spawnPoints[spawnIndex].rotation;
         enemy.Init(bulletPool, mainTarget);
         enemy.GetComponent<HealthHolder>().DestroyedAction += OnEnemyDeath;
         enemies.Add(enemy);
